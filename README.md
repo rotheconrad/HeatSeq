@@ -2,7 +2,9 @@
 
 ![HeatSeq Logo]()
 
-This tool generates distance based cluster predictions for genomic data (ANI, AAI) and metagenomic data (beta distance, MASH, Simka) or any other all vs. all distance type matrix, and it builds a clustered heatmap with rows to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tsv file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
+Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others.
+
+This tool uses hierarchical clustering to generate distance based cluster predictions for genomic (ANI, AAI) and metagenomic data (beta distance, MASH, Simka), or any other all vs. all distance type matrix, and it builds a clustered heatmap with column labels to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tsv file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
 
 # Table of Contents
 
@@ -41,7 +43,7 @@ And several additional parameters:
 	1. AAI - this is for a square all vs. all matrix of AAI values with 100's down the diagonal.
 	1. Mash - this is for a Mash distance matrix.
 	1. Simka - this is for a Simka distance matrix.
-	1. Distance - this is any distance matrix with values 0-1.
+	1. Distance - this is any square distance matrix with values 0-1.
 1. -dmin, Specify the minimum value for colors in the figure.
 1. -dmax, Specify the maximum value for colors in the figure.
 1. -metric, set different cluster metrics. choose from:
