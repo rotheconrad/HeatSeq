@@ -5,7 +5,7 @@
 
 Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others.
 
-This tool uses hierarchical clustering to generate distance based cluster predictions for genomic (ANI, AAI) and metagenomic data (beta distance, MASH, Simka), or any other all vs. all distance type matrix, and it builds a clustered heatmap with column labels to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tsv file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
+This tool uses hierarchical clustering to generate distance based cluster predictions for genomic (ANI, AAI) and metagenomic data (beta distance, MASH, Simka), or any other all vs. all distance type matrix, and it builds a clustered heatmap with column labels to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tab separated value (tsv) file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
 
 # Table of Contents
 
@@ -30,7 +30,7 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 
 ![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/clustermap_example.png)
 
-#### Predicted clusters table (see files/example_predicted_clusters.tsv)
+#### Predicted clusters table (see: <font size="2">*files/example_predicted_clusters.tsv*</font>)
 
 **genomes**|**clade-0 (96.0% ANI; t=0.04)**|**clade-1 (97.4% ANI; t=0.026)**|**clade-2 (98.0% ANI; t=0.02)**|**clade-3 (98.7% ANI; t=0.013)**|**clade-4 (99.2% ANI; t=0.008)**|**clade-5 (99.8% ANI; t=0.002)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
@@ -118,7 +118,7 @@ fastANI is the default case and was utilized in the case examples above.
 
 ## ANI
 
-This option
+This option is to accommodate ANI values estimated with other tools. Arrange the data into a square matrix and format at a tsv file.
 
 ```bash
 python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_ANI -dtype ANI
@@ -126,11 +126,15 @@ python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_ANI -dtype 
 
 ## AAI
 
+This options alters the value range for hierarchical clustering and the heatmap to accommodate the lower percentage range of AAI estimates. Any AAI tool may be used. Arrange the data into a square matrix and format at a tsv file.
+
 ```bash
 python HeatSeq.py -i files/example_AAI_allV.aai -o files/example_AAI -dtype AAI
 ```
 
 ## Mash
+
+This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap. 
 
 ```bash
 python HeatSeq.py -i files/example_mash_allV.ani -o files/example_MASH -dtype Mash
@@ -144,7 +148,7 @@ python HeatSeq.py -i files/example_simka_allV. -o files/example_SIMKA -dtype Sim
 
 ## Distance
 
-Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tab separated value (tsv) file.
+Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tsv file.
 
 ```bash
 python HeatSeq.py -i files/example_distance_allV.tsv -o files/example_distance -dtype Distance
