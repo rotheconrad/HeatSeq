@@ -30,7 +30,7 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 
 ![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/clustermap_example.png)
 
-#### Predicted clusters table
+#### Predicted clusters table (see files/example_predicted_clusters.tsv)
 
 **genomes**|**clade-0 (96.0% ANI; t=0.04)**|**clade-1 (97.4% ANI; t=0.026)**|**clade-2 (98.0% ANI; t=0.02)**|**clade-3 (98.7% ANI; t=0.013)**|**clade-4 (99.2% ANI; t=0.008)**|**clade-5 (99.8% ANI; t=0.002)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
@@ -84,9 +84,15 @@ python HeatSeq.py -h
 
 ## Case One: Default
 
+The default case uses [scipy.stats.gaussian_kde](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gaussian_kde.html) and [scipy.signal.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html) to estimate local minimums and maximums in the distance distribution. The local minimums are used as distance thresholds during the hierarchical clustering process.
+
 ```bash
-python HeatSeq.py -i -o
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example
 ```
+
+#### KDE with peaks (local maximums) and valleys (local minimums)
+
+![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/local_minimums_example.png)
 
 ## Case Two: User Defined
 
