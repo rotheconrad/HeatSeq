@@ -96,13 +96,15 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_defau
 
 ## Case Two: User Defined
 
-In this case the user can modify the local minimum estimates or enter their own distances based purely on their own curiosity. In the example below we ammend and adjust the local minimums that were identified in case one.
+The user defined case allows the local minimum estimates to ammended, appended, or changed entirely based on pure curiosity and speculation. In the example below we ammend and adjust the local minimums that were identified in case one.
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_default -user 96 97.4 98 98.7 99.2 99.8
 ```
 
 ## Case Three: Custom Metadata
+
+The custom metadata case allows the user to modify the predicted clusters and and meta colors files output by case one or two to include additional metadata categories and or alter the colors. 
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
@@ -136,13 +138,15 @@ python HeatSeq.py -i files/05_example_AAI_allV.aai -o tests/05_example_AAI -dtyp
 
 ## Mash
 
-This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap. 
+This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
 
 ```bash
 python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.6 0.8 1.0
 ```
 
 ## Simka
+
+This option takes the output from Simka. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
 
 ```bash
 python HeatSeq.py -i files/07_example_simka_allV.txt -o tests/07_example_SIMKA -dtype Simka -user 0.5 0.7 0.9
