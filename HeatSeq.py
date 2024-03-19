@@ -67,7 +67,7 @@ To use different data types set -dtype to on of the following:
     * Distance - For any other all vs. all square matrix range 0-1.
 
 -------------------------------------------
-Author :: Roth Conrad w/ thanks to Dorian Feistel
+Author :: Roth Conrad w/ thanks to Dorian J. Feistel
 Email :: rotheconrad@gatech.edu
 GitHub :: https://github.com/rotheconrad
 Date Created :: March 2024
