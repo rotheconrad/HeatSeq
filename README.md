@@ -94,7 +94,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_defau
 
 ![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/local_minimums_example.png)
 
-## Case Two: User Defined
+### Case Two: User Defined
 
 The user defined case allows the local minimum estimates to be amended, appended, or changed entirely based on pure curiosity and speculation. In the example below we amended and appended the local minimums that were identified in case one.
 
@@ -102,7 +102,7 @@ The user defined case allows the local minimum estimates to be amended, appended
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_default -user 96 97.4 98 98.7 99.2 99.8
 ```
 
-## Case Three: Custom Metadata
+### Case Three: Custom Metadata
 
 The custom metadata case allows the user to modify the predicted clusters and meta colors files output by case one or two to include additional metadata categories and/or alter the colors. 
 
@@ -114,11 +114,11 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_defau
 
 # Examples
 
-## fastANI
+### fastANI
 
 fastANI is the default case and was utilized in the case examples above.
 
-## ANI
+### ANI
 
 This option is to accommodate ANI values estimated with other tools. Arrange the data into a square matrix and format at a tsv file.
 
@@ -128,7 +128,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/04_example_ANI -
 
 *this option has incomplete example and testing*
 
-## AAI
+### AAI
 
 This options alters the value range for hierarchical clustering and the heatmap to accommodate the lower percentage range of AAI estimates. Any AAI tool may be used. Arrange the data into a square matrix and format at a tsv file.
 
@@ -136,7 +136,7 @@ This options alters the value range for hierarchical clustering and the heatmap 
 python HeatSeq.py -i files/05_example_AAI_allV.aai -o tests/05_example_AAI -dtype AAI
 ```
 
-## Mash
+### Mash
 
 This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
 
@@ -144,7 +144,7 @@ This option takes the output from Mash. It alters the value range for hierarchic
 python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.6 0.8 1.0
 ```
 
-## Simka
+### Simka
 
 This option takes the output from Simka. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
 
@@ -152,7 +152,7 @@ This option takes the output from Simka. It alters the value range for hierarchi
 python HeatSeq.py -i files/07_example_simka_allV.txt -o tests/07_example_SIMKA -dtype Simka -user 0.5 0.7 0.9
 ```
 
-## Distance
+### Distance
 
 Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tsv file.
 
@@ -166,13 +166,13 @@ python HeatSeq.py -i files/08_example_distance_allV.tsv -o tests/08_example_dist
 
 # Software Dependencies
 
-## External dependencies
+### External dependencies
 
 Code in this repo uses only Python and Python packages which are listed below. However, it requires the user to independently compute distance (ANI, AAI, Mash etc.) with an external tool prior to running this code.
 
 *Use fastANI, enveomics, Mash, Simka etc.*
 
-## Required packages for Python
+### Required packages for Python
 
 - [Python](https://www.python.org/) version 3.6+
 - [pandas](https://pandas.pydata.org/) 
