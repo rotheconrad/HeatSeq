@@ -24,9 +24,35 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 1. [How to Cite](#how-to-cite)
 1. [Future Improvements](#future-improvements)
 
-### Example output figure
+### Example output
+
+#### Finished heatmap figure
 
 ![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/clustermap_example.png)
+
+#### Predicted clusters table
+
+**genomes**|**clade-0 (96.0% ANI; t=0.04)**|**clade-1 (97.4% ANI; t=0.026)**|**clade-2 (98.0% ANI; t=0.02)**|**clade-3 (98.7% ANI; t=0.013)**|**clade-4 (99.2% ANI; t=0.008)**|**clade-5 (99.8% ANI; t=0.002)**
+:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
+gnm\_1383800v1|c0-006|c1-007|c2-008|c3-013|c4-032|c5-039
+gnm\_1389944v1|c0-006|c1-007|c2-008|c3-019|c4-048|c5-059
+gnm\_1380692v1|c0-006|c1-007|c2-008|c3-019|c4-048|c5-059
+gnm\_1380608v1|c0-006|c1-007|c2-008|c3-019|c4-048|c5-059
+gnm\_1380652v1|c0-006|c1-007|c2-008|c3-019|c4-048|c5-059
+gnm\_1388647v1|c0-006|c1-007|c2-008|c3-019|c4-048|c5-059
+gnm\_1388747v1|c0-006|c1-007|c2-008|c3-019|c4-048|c5-059
+gnm\_1383334v1|c0-006|c1-007|c2-008|c3-024|c4-053|c5-066
+gnm\_1388961v1|c0-006|c1-007|c2-008|c3-024|c4-053|c5-066
+gnm\_1389954v1|c0-006|c1-007|c2-008|c3-024|c4-053|c5-066
+gnm\_1389962v1|c0-006|c1-007|c2-008|c3-024|c4-053|c5-066
+gnm\_1389099v1|c0-006|c1-007|c2-008|c3-020|c4-049|c5-061
+gnm\_1383380v1|c0-006|c1-007|c2-008|c3-020|c4-049|c5-060
+gnm\_1388921v1|c0-006|c1-007|c2-008|c3-020|c4-049|c5-060
+gnm\_1388839v1|c0-006|c1-007|c2-008|c3-017|c4-038|c5-049
+gnm\_1381428v1|c0-006|c1-007|c2-008|c3-017|c4-038|c5-049
+gnm\_1388731v1|c0-006|c1-007|c2-008|c3-017|c4-038|c5-049
+gnm\_1390002v1|c0-006|c1-007|c2-008|c3-017|c4-038|c5-049
+gnm\_1389978v1|c0-006|c1-007|c2-008|c3-017|c4-039|c5-050
 
 # Usage
 
