@@ -24,6 +24,8 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 1. [How to Cite](#how-to-cite)
 1. [Future Improvements](#future-improvements)
 
+### Example output figure
+
 ![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/clustermap_example.png)
 
 # Usage
