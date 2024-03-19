@@ -1,4 +1,4 @@
-# HeatSeq: Cluster munitions for microbial genomic sequence data
+# HeatSeq: cluster munitions for microbial genomics
 
 ![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.png)
 
