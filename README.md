@@ -3,7 +3,7 @@
 ![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.png)
 
 
-Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others.
+Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others. Excellent for exploring distance based genomic clades or sample groups. Developed to investigate intraspecies clades such as genomovars and phylogroups.
 
 This tool uses hierarchical clustering to generate distance based cluster predictions for genomic (ANI, AAI) and metagenomic data (beta distance, MASH, Simka), or any other all vs. all distance type matrix, and it builds a clustered heatmap with column labels to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tab separated value (tsv) file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
 
@@ -30,7 +30,7 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 
 ![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/clustermap_example.png)
 
-#### Predicted clusters table (see: <font size="2">*files/example_predicted_clusters.tsv*</font>)
+#### Predicted clusters table (see: *files/example_predicted_clusters.tsv*)
 
 **genomes**|**clade-0 (96.0% ANI; t=0.04)**|**clade-1 (97.4% ANI; t=0.026)**|**clade-2 (98.0% ANI; t=0.02)**|**clade-3 (98.7% ANI; t=0.013)**|**clade-4 (99.2% ANI; t=0.008)**|**clade-5 (99.8% ANI; t=0.002)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
@@ -60,7 +60,7 @@ Their are three initial options:
 
 And several additional parameters:
 
-1. -type, Specify data type. One of fastANI (default), ANI, AAI, Mash, Simka, Distance
+1. -dtype, Specify data type. One of fastANI (default), ANI, AAI, Mash, Simka, Distance
 	1. fastANI (default) - this takes the longform fastANI output and parses it into a distance matrix.
 	1. ANI - this is for a square all vs. all matrix of ANI values with 100's down the diagonal.
 	1. AAI - this is for a square all vs. all matrix of AAI values with 100's down the diagonal.
@@ -99,13 +99,13 @@ python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default
 In this case the user can modify the local minimum estimates or enter their own distances based purely on their own curiosity. In the example below we ammend and adjust the local minimums that were identified in case one.
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -user
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -user 96 97.4 98 98.7 99.2 99.8
 ```
 
 ## Case Three: Custom Metadata
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -m files/ -c files/
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -m files/example_predicted_clusters.tsv -c files/example_meta_colors.tsv
 ```
 
 ([Return to Table of Contents](#table-of-contents))
@@ -121,7 +121,7 @@ fastANI is the default case and was utilized in the case examples above.
 This option is to accommodate ANI values estimated with other tools. Arrange the data into a square matrix and format at a tsv file.
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_ANI -dtype ANI
+python HeatSeq.py -i files/example_ANI_allV.ani -o files/example_ANI -dtype ANI
 ```
 
 ## AAI
