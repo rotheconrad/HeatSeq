@@ -87,7 +87,7 @@ python HeatSeq.py -h
 The default case uses [scipy.stats.gaussian_kde](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gaussian_kde.html) and [scipy.signal.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html) to estimate local minimums and maximums in the distance distribution. The local minimums are used as distance thresholds during the hierarchical clustering process.
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default
 ```
 
 #### KDE with peaks (local maximums) and valleys (local minimums)
@@ -96,14 +96,16 @@ python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example
 
 ## Case Two: User Defined
 
+In this case the user can modify the local minimum estimates or enter their own distances based purely on their own curiosity. In the example below we ammend and adjust the local minimums that were identified in case one.
+
 ```bash
-python HeatSeq.py -i -o -user
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -user
 ```
 
 ## Case Three: Custom Metadata
 
 ```bash
-python HeatSeq.py -i -o -m -c
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -m files/ -c files/
 ```
 
 ([Return to Table of Contents](#table-of-contents))
@@ -112,38 +114,40 @@ python HeatSeq.py -i -o -m -c
 
 ## fastANI
 
-```bash
-python HeatSeq.py -i -o
-```
+fastANI is the default case and was utilized in the case examples above.
 
 ## ANI
 
+This option
+
 ```bash
-python HeatSeq.py -i -o
+python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_ANI -dtype ANI
 ```
 
 ## AAI
 
 ```bash
-python HeatSeq.py -i -o
+python HeatSeq.py -i files/example_AAI_allV.aai -o files/example_AAI -dtype AAI
 ```
 
 ## Mash
 
 ```bash
-python HeatSeq.py -i -o
+python HeatSeq.py -i files/example_mash_allV.ani -o files/example_MASH -dtype Mash
 ```
 
 ## Simka
 
 ```bash
-python HeatSeq.py -i -o
+python HeatSeq.py -i files/example_simka_allV. -o files/example_SIMKA -dtype Simka
 ```
 
 ## Distance
 
+Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tab separated value (tsv) file.
+
 ```bash
-python HeatSeq.py -i -o
+python HeatSeq.py -i files/example_distance_allV.tsv -o files/example_distance -dtype Distance
 ```
 
 ([Return to Table of Contents](#table-of-contents))
