@@ -170,12 +170,8 @@ Code in this repo uses only Python and Python packages which are listed below. H
 - [pandas](https://pandas.pydata.org/) 
 - [numpy](https://numpy.org/)
 - [scipy](https://scipy.org/)
-- [statsmodels](https://www.statsmodels.org)
 - [matplotlib](https://matplotlib.org/)
 - [seaborn](https://seaborn.pydata.org/)
-- [lmfit](https://lmfit.github.io/lmfit-py/)
-- [datashader](https://datashader.org/)
-- [pygam](https://pygam.readthedocs.io/)
 
 *Python and all packages can be easily installed with conda or pip. Prodigal, BLAST+ and MMseqs2 can also be installed easily with [Conda](https://docs.conda.io/en/latest/miniconda.html). Just search "conda install name"*
 
@@ -186,12 +182,8 @@ Code in this repo uses only Python and Python packages which are listed below. H
 1. McKinney W, others. Data structures for statistical computing in python. In: Proceedings of the 9th Python in Science Conference. 2010. p. 51–6.
 1. Harris CR, Millman KJ, van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, et al. Array programming with NumPy. Nature. 2020;585:357–62.
 1. Virtanen P, Gommers R, Oliphant TE, Haberland M, Reddy T, Cournapeau D, et al. SciPy 1.0: Fundamental Algorithms for Scientific Computing in Python. Nature Methods. 2020;17:261–72.
-1. Seabold S, Perktold J. Statsmodels: Econometric and statistical modeling with python. InProceedings of the 9th Python in Science Conference 2010 Jun 28 (Vol. 57, No. 61, pp. 10-25080).
 1. Hunter JD. Matplotlib: A 2D graphics environment. Computing in science & engineering. 2007;9(3):90–5.
 1. Waskom ML. Seaborn: statistical data visualization. Journal of Open Source Software. 2021 Apr 6;6(60):3021.
-1. Newville M, Stensitzki T, Allen DB, Rawlik M, Ingargiola A, Nelson A. LMFIT: Non-linear least-square minimization and curve-fitting for Python. Astrophysics Source Code Library. 2016 Jun:ascl-1606.
-1. James A. Bednar, Jim Crist, Joseph Cottam, and Peter Wang (2016). "Datashader: Revealing the Structure of Genuinely Big Data", 15th Python in Science Conference (SciPy 2016).
-1. Servén D., Brummitt C. (2018). pyGAM: Generalized Additive Models in Python. Zenodo. DOI: 10.5281/zenodo.1208723
 
 ([Return to Table of Contents](#table-of-contents))
 
