@@ -58,6 +58,14 @@ To set different cluster metrics choose from:
     *See webpage/docs for scipy.spatial.distance.pdist for additional 
      options and more info
 
+To use different data types set -dtype to on of the following:
+    * fastANI - (default) for longform fastANI output.
+    * ANI - For all vs. all square matrix of any ANI data.
+    * AAI - For all vs. all square matrix of any AAI data.
+    * Mash - For an all vs. all square matrix output by Mash
+    * Simka - For an all vs. all square matrix output by Simka
+    * Distance - For any other all vs. all square matrix range 0-1.
+
 -------------------------------------------
 Author :: Roth Conrad w/ thanks to Dorian Feistel
 Email :: rotheconrad@gatech.edu
@@ -235,40 +243,59 @@ def parse_colors(metacolors):
     return cdict
 
 
-def custom_cmap(dmin, dmax):
+def get_minmax(dmin, dmax, units):
 
-    '''
-    # two colors per 1% ANI (e.g. light to dark)
-    ani_range = int(np.ceil(dmax) - np.floor(dmin) + 1) * 2
+    # get bmax from the data
+    if not dmax:
+        dmax = np.max(d_array)
+        dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
+    if not dmin:
+        dmin = np.min(d_array)
+        dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
 
-    # Read these as colors per whole ANI value
-    # eg: [100-99 lt-dark red; 99-98 lt-dk blue; 98-97 lt-dk green]
-    # eg: [97-96 orange-yellow; 96-95 lt-dk purple; 95-94 lt-dk teal]
-    # eg: [94-93 lt-dk pink; 93-92 lt-dk brown; 92-91 gray-black]
+    print(f'\n\n\tData min and max: {bmin}, {bmax}')
 
-    colors = [
-              '#67000d', '#fc9272', '#08306b', '#6baed6', '#00441b', '#a1d99b',
-              '#ec7014', '#ffeda0', '#3f007d', '#9e9ac8',  '#01665e', '#c7eae5',
-              '#c51b7d', '#fde0ef', '#8c510a', '#f6e8c3', '#d9d9d9', '#252525'
-              ]
+    return dmin, dmax
 
-    cmap = sns.blend_palette(reversed(colors[:ani_range-1]), as_cmap=True)
-    '''
 
-    # one color per 1% ANI range
-    ani_range = int(np.ceil(dmax) - np.floor(dmin) + 1)
+def get_custom_cmap(d_array, dmin, dmax, units):
+
+    if units == 100:
+        # one color per 1% ANI range
+        d_range = int(np.ceil(dmax) - np.floor(dmin) + 1)
+
+    elif units == 1:
+        # get bmax from the data
+        if not dmax:
+            dmax = np.max(d_array)
+            dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
+        if not dmin:
+            dmin = np.min(d_array)
+            dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
+
+        print(f'\n\n\tData min and max: {bmin}, {bmax}')
+        # one color per 0.1 distance range
+        step = 0.1
+            d_range = len(np.arange(bmin, bmax+step, step))
+            if d_range == 4:
+                d_range += 3
+            elif d_range == 3:
+                d_range += 4
+            elif d_range == 2:
+                d_range += 5
+            elif d_range == 1:
+                d_range += 6
 
     # Read these as colors per whole ANI value
     # eg: [100 red, 99 orange, 98 yellow, 97 green, ]
-
     colors = [
               '#e41a1c', '#ff7f00', '#ffff33', '#006d2c', '#80cdc1',
               '#377eb8', '#e78ac3', '#984ea3', '#bf812d', '#bababa'
               ]
 
-    cmap = sns.blend_palette(reversed(colors[:ani_range]), as_cmap=True)
+    cmap = sns.blend_palette(reversed(colors[:d_range]), as_cmap=True)
 
-    return cmap
+    return cmap, dmin, dmax
 
 
 def plot_clustred_heatmap(
@@ -348,8 +375,6 @@ def plot_clustred_heatmap(
     # write file
     g.savefig(f'{outpre}_clustermap.pdf')
     plt.close()
-
-
 
     return True
 
@@ -441,7 +466,7 @@ def main():
         default='average'
         )
     parser.add_argument(
-        '-type', '--data_type',
+        '-dtype', '--data_type',
         help='(Optional) Specify data type (default: fastANI)',
         metavar=':',
         type=str,
@@ -464,13 +489,33 @@ def main():
     dmax = args['maximum_distance']
     metric = args['cluster_metric']
     method = args['cluster_method']
+    dtype = args['data_type']
 
-    # read in all vs. all fastANI file.
-    df, ani_array = parse_ANI_file(infile, dmin, dmax)
+    # read in the data.
+    if dtype == 'fastANI':
+        # read in all vs. all fastANI file.
+        df, ani_array = parse_ANI_file(infile, dmin, dmax)
+        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 100)
+    elif dtype == 'ANI' or dtype == 'AAI':
+        df = pd.read_csv(infile, sep='\t', index_col=0)
+        d_array = df.to_numpy().flatten()
+        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 100)
+    elif dtype == 'Mash' or dypte == 'Distance':
+        df = pd.read_csv(infile, sep='\t', index_col=0)
+        d_array = df.to_numpy().flatten()
+        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 1)
+    elif dtype == 'Simka':
+        df = pd.read_csv(infile, sep=';', index_col=0)
+        d_array = df.to_numpy().flatten()
+        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 1)
+    else:
+        print(
+            '\n\n\t\tERROR: please specify one of the following:\n'
+            '\t\t\tfastANI, ANI, AAI, Mash, Simka, or Distance.\n\n'
+            )
 
-    # create custom color map for the heatmap gradient
-    cmap = custom_cmap(dmin, dmax)
-    
+    ####################################################################
+
     if no_meta:
         # create the plot without meta data colors
         metadf, cdict = pd.DataFrame(), pd.DataFrame()
