@@ -1,6 +1,7 @@
 # HeatSeq: Cluster munitions for microbial genomic sequence data
 
-![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/tree/main/images/HeatSeq_logo.png)
+![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.png)
+
 
 Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others.
 
@@ -23,7 +24,7 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 1. [How to Cite](#how-to-cite)
 1. [Future Improvements](#future-improvements)
 
-![Final Figure Example](https://github.com/rotheconrad/HeatSeq/tree/main/images/clustermap_example.png)
+![Final Figure Example](https://github.com/rotheconrad/HeatSeq/blob/main/images/clustermap_example.png)
 
 # Usage
 
