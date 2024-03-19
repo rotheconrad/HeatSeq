@@ -32,6 +32,8 @@ This tool uses hierarchical clustering to generate distance based cluster predic
 
 #### Predicted clusters table (see: *files/example_predicted_clusters.tsv*)
 
+The genome/sample order in the *predicted_clusters.tsv* file matches the order of the clustermap. The outputs also include a *meta_colors.tsv* file where a color has been assigned to each predicted cluster for each distance threshold, and a *distmat.tsv* which is the distance matrix reordered to match the clustermap.
+
 **genomes**|**clade-0 (96.0% ANI; t=0.04)**|**clade-1 (97.4% ANI; t=0.026)**|**clade-2 (98.0% ANI; t=0.02)**|**clade-3 (98.7% ANI; t=0.013)**|**clade-4 (99.2% ANI; t=0.008)**|**clade-5 (99.8% ANI; t=0.002)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
 gnm\_1383800v1|c0-006|c1-007|c2-008|c3-013|c4-032|c5-039
@@ -96,7 +98,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_defau
 
 ### Case Two: User Defined
 
-The user defined case allows the local minimum estimates to be amended, appended, or changed entirely based on pure curiosity and speculation. In the example below we amended and appended the local minimums that were identified in case one.
+The user defined case allows the local minimum estimates to be amended, appended, or changed entirely based on pure curiosity and speculation. In the example below we amended and appended the local minimums that were identified in case one using some intra-species level distance thresholds.
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_default -user 96 97.4 98 98.7 99.2 99.8
@@ -104,7 +106,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_defau
 
 ### Case Three: Custom Metadata
 
-The custom metadata case allows the user to modify the predicted clusters and meta colors files output by case one or two to include additional metadata categories and/or alter the colors. 
+The custom metadata case allows the user to modify the *predicted_clusters.tsv* and the *meta_colors.tsv* files output from the case two example to include additional metadata categories and/or alter the colors. In this example we've added niche and clermontyping assignments for each genome and we've added color assignments for each unique niche or clermontyping category.
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
@@ -120,9 +122,13 @@ fastANI is the default case and was utilized in the case examples above. Here we
 
 ```bash
 # set min and max
-python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_default
+python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xa_example_default -dmin 90 -dmax 99
 
-# 
+# no metadata or predicted clusters
+python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xb_example_default -no True
+
+# different method and metric
+python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xc_example_default -method centroid -metric correlation -user 99.5 98.5 97.5 96.5
 ```
 
 ### ANI

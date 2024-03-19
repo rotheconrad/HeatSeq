@@ -77,7 +77,7 @@ All rights reserved
 -------------------------------------------
 '''
 
-import argparse
+import argparse, sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -111,7 +111,8 @@ def parse_ANI_file(infile, dmin, dmax):
             g2size = int(X[4])
             # filter min and max ANI values
             if dmin and ani < dmin: continue
-            if dmax and ani > dmax: continue
+            if not g1 == g2:
+                if dmax and ani > dmax: continue
             # add ani to array
             ani_array.append(ani)
             # convert to ANI distance
@@ -144,7 +145,15 @@ def parse_ANI_file(infile, dmin, dmax):
     df = df[df.index]
 
     if len(df) == 0:
-        print('\n\n\tERROR: The dataframe is empty. dmin or dmax may be too stringent')
+        print(
+            '\n\n'
+            '\tERROR: The dataframe is empty.\n'
+            '\tIts possible that dmin or dmax may be too stringent.\n'
+            '\tTry adjusting the parameters or alternately,\n'
+            '\tyou could modify your input to remove unwanted genomes.'
+            '\n\n'
+            )
+        sys.exit(1)
 
     return df, ani_array
 
