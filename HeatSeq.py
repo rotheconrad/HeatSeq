@@ -70,9 +70,9 @@ To use different data types set -dtype to on of the following:
 Author :: Roth Conrad w/ thanks to Dorian Feistel
 Email :: rotheconrad@gatech.edu
 GitHub :: https://github.com/rotheconrad
-Date Created :: Feb 2023
+Date Created :: March 2024
 License :: GNU GPLv3
-Copyright 2023 Roth Conrad
+Copyright 2024 Roth Conrad
 All rights reserved
 -------------------------------------------
 '''

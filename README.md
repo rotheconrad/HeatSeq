@@ -87,7 +87,7 @@ python HeatSeq.py -h
 The default case uses [scipy.stats.gaussian_kde](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gaussian_kde.html) and [scipy.signal.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html) to estimate local minimums and maximums in the distance distribution. The local minimums are used as distance thresholds during the hierarchical clustering process.
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default
+python HeatSeq.py -i files/example_fastANI_allV.ani -o tests/01_example_default
 ```
 
 #### KDE with peaks (local maximums) and valleys (local minimums)
@@ -99,13 +99,13 @@ python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default
 In this case the user can modify the local minimum estimates or enter their own distances based purely on their own curiosity. In the example below we ammend and adjust the local minimums that were identified in case one.
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -user 96 97.4 98 98.7 99.2 99.8
+python HeatSeq.py -i files/example_fastANI_allV.ani -o tests/02_example_default -user 96 97.4 98 98.7 99.2 99.8
 ```
 
 ## Case Three: Custom Metadata
 
 ```bash
-python HeatSeq.py -i files/example_fastANI_allV.ani -o files/example_default -m files/example_predicted_clusters.tsv -c files/example_meta_colors.tsv
+python HeatSeq.py -i files/example_fastANI_allV.ani -o tests/03_example_default -m files/example_predicted_clusters.tsv -c files/example_meta_colors.tsv
 ```
 
 ([Return to Table of Contents](#table-of-contents))
@@ -121,7 +121,7 @@ fastANI is the default case and was utilized in the case examples above.
 This option is to accommodate ANI values estimated with other tools. Arrange the data into a square matrix and format at a tsv file.
 
 ```bash
-python HeatSeq.py -i files/example_ANI_allV.ani -o files/example_ANI -dtype ANI
+python HeatSeq.py -i files/example_ANI_allV.ani -o tests/04_example_ANI -dtype ANI
 ```
 
 ## AAI
@@ -129,7 +129,7 @@ python HeatSeq.py -i files/example_ANI_allV.ani -o files/example_ANI -dtype ANI
 This options alters the value range for hierarchical clustering and the heatmap to accommodate the lower percentage range of AAI estimates. Any AAI tool may be used. Arrange the data into a square matrix and format at a tsv file.
 
 ```bash
-python HeatSeq.py -i files/example_AAI_allV.aai -o files/example_AAI -dtype AAI
+python HeatSeq.py -i files/example_AAI_allV.aai -o tests/05_example_AAI -dtype AAI
 ```
 
 ## Mash
@@ -137,13 +137,13 @@ python HeatSeq.py -i files/example_AAI_allV.aai -o files/example_AAI -dtype AAI
 This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap. 
 
 ```bash
-python HeatSeq.py -i files/example_mash_allV.ani -o files/example_MASH -dtype Mash
+python HeatSeq.py -i files/example_mash_allV.ani -o tests/06_example_MASH -dtype Mash
 ```
 
 ## Simka
 
 ```bash
-python HeatSeq.py -i files/example_simka_allV. -o files/example_SIMKA -dtype Simka
+python HeatSeq.py -i files/example_simka_allV. -o tests/07_example_SIMKA -dtype Simka
 ```
 
 ## Distance
@@ -151,7 +151,7 @@ python HeatSeq.py -i files/example_simka_allV. -o files/example_SIMKA -dtype Sim
 Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tsv file.
 
 ```bash
-python HeatSeq.py -i files/example_distance_allV.tsv -o files/example_distance -dtype Distance
+python HeatSeq.py -i files/example_distance_allV.tsv -o tests/08_example_distance -dtype Distance
 ```
 
 ([Return to Table of Contents](#table-of-contents))
