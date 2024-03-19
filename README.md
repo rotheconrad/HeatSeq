@@ -1,6 +1,6 @@
 # HeatSeq: cluster munitions for microbial genomics
 
-![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.png)
+![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.jpg)
 
 
 Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others. Excellent for exploring distance based genomic clades or sample groups. Developed to investigate intraspecies clades such as genomovars and phylogroups.
@@ -116,7 +116,14 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_defau
 
 ### fastANI
 
-fastANI is the default case and was utilized in the case examples above.
+fastANI is the default case and was utilized in the case examples above. Here we show examples with some optional parameters
+
+```bash
+# set min and max
+python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_default
+
+# 
+```
 
 ### ANI
 

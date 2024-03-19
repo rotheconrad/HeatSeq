@@ -110,7 +110,8 @@ def parse_ANI_file(infile, dmin, dmax):
             # get second genome length (total kmers)
             g2size = int(X[4])
             # filter min and max ANI values
-            if ani < dmin or ani > dmax: continue
+            if dmin and ani < dmin: continue
+            if dmax and ani > dmax: continue
             # add ani to array
             ani_array.append(ani)
             # convert to ANI distance
@@ -136,10 +137,14 @@ def parse_ANI_file(infile, dmin, dmax):
         data[g1] = []
         for g2 in glist:
             key = '-'.join(sorted([g1, g2]))
-            d = dist.get(key, [dmin,0])[0]
+            d = dist.get(key, [np.nan, 0])[0]
             data[g1].append(d)
 
-    df = pd.DataFrame(data, index=glist, columns=glist)
+    df = pd.DataFrame(data, index=glist, columns=glist).dropna()
+    df = df[df.index]
+
+    if len(df) == 0:
+        print('\n\n\tERROR: The dataframe is empty. dmin or dmax may be too stringent')
 
     return df, ani_array
 
@@ -243,26 +248,19 @@ def parse_colors(metacolors):
     return cdict
 
 
-def get_minmax(dmin, dmax, units):
-
-    # get bmax from the data
-    if not dmax:
-        dmax = np.max(d_array)
-        dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
-    if not dmin:
-        dmin = np.min(d_array)
-        dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
-
-    print(f'\n\n\tData min and max: {bmin}, {bmax}')
-
-    return dmin, dmax
-
-
 def get_custom_cmap(d_array, dmin, dmax, units):
 
     if units == 100:
+        # get min and max
+        if not dmin:
+            dmin = np.min(d_array)
+            print(f'\n\n\tData minimum: {dmin}')
+        if not dmax: 
+            dmax = np.max(d_array)
+            print(f'\n\n\tData maximum: {dmax}')
         # one color per 1% ANI range
         d_range = int(np.ceil(dmax) - np.floor(dmin) + 1)
+        if d_range > 11: d_range = 11
 
     elif units == 1:
         # get bmax from the data
@@ -276,21 +274,22 @@ def get_custom_cmap(d_array, dmin, dmax, units):
         print(f'\n\n\tData min and max: {bmin}, {bmax}')
         # one color per 0.1 distance range
         step = 0.1
-            d_range = len(np.arange(bmin, bmax+step, step))
-            if d_range == 4:
-                d_range += 3
-            elif d_range == 3:
-                d_range += 4
-            elif d_range == 2:
-                d_range += 5
-            elif d_range == 1:
-                d_range += 6
+        d_range = len(np.arange(bmin, bmax+step, step))
+        if d_range == 4:
+            d_range += 3
+        elif d_range == 3:
+            d_range += 4
+        elif d_range == 2:
+            d_range += 5
+        elif d_range == 1:
+            d_range += 6
 
     # Read these as colors per whole ANI value
     # eg: [100 red, 99 orange, 98 yellow, 97 green, ]
     colors = [
               '#e41a1c', '#ff7f00', '#ffff33', '#006d2c', '#80cdc1',
-              '#377eb8', '#e78ac3', '#984ea3', '#bf812d', '#bababa'
+              '#377eb8', '#e78ac3', '#984ea3', '#bf812d', '#bababa',
+              '#252525'
               ]
 
     cmap = sns.blend_palette(reversed(colors[:d_range]), as_cmap=True)
@@ -495,19 +494,19 @@ def main():
     if dtype == 'fastANI':
         # read in all vs. all fastANI file.
         df, ani_array = parse_ANI_file(infile, dmin, dmax)
-        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 100)
+        cmap, dmin, dmax = get_custom_cmap(ani_array, dmin, dmax, 100)
     elif dtype == 'ANI' or dtype == 'AAI':
         df = pd.read_csv(infile, sep='\t', index_col=0)
         d_array = df.to_numpy().flatten()
-        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 100)
+        cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, 100)
     elif dtype == 'Mash' or dypte == 'Distance':
         df = pd.read_csv(infile, sep='\t', index_col=0)
         d_array = df.to_numpy().flatten()
-        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 1)
+        cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, 1)
     elif dtype == 'Simka':
         df = pd.read_csv(infile, sep=';', index_col=0)
         d_array = df.to_numpy().flatten()
-        cmap, dmin, dmax = get_custom_cmap(dmin, dmax, 1)
+        cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, 1)
     else:
         print(
             '\n\n\t\tERROR: please specify one of the following:\n'
