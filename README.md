@@ -96,7 +96,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_defau
 
 ## Case Two: User Defined
 
-The user defined case allows the local minimum estimates to ammended, appended, or changed entirely based on pure curiosity and speculation. In the example below we ammend and adjust the local minimums that were identified in case one.
+The user defined case allows the local minimum estimates to be amended, appended, or changed entirely based on pure curiosity and speculation. In the example below we amended and appended the local minimums that were identified in case one.
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_default -user 96 97.4 98 98.7 99.2 99.8
@@ -104,7 +104,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_defau
 
 ## Case Three: Custom Metadata
 
-The custom metadata case allows the user to modify the predicted clusters and and meta colors files output by case one or two to include additional metadata categories and or alter the colors. 
+The custom metadata case allows the user to modify the predicted clusters and meta colors files output by case one or two to include additional metadata categories and/or alter the colors. 
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
