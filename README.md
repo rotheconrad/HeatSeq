@@ -82,7 +82,7 @@ And several additional parameters:
 python HeatSeq.py -h
 ```
 
-## Case One: Default
+### Case One: Default
 
 The default case uses [scipy.stats.gaussian_kde](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gaussian_kde.html) and [scipy.signal.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html) to estimate local minimums and maximums in the distance distribution. The local minimums are used as distance thresholds during the hierarchical clustering process.
 
