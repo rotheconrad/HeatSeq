@@ -151,9 +151,23 @@ python HeatSeq.py -i files/05_example_AAI_allV.aai -o tests/05_example_AAI -dtyp
 
 ### Mash
 
-This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
+This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap to fit 0-1.
+
+Mash releases: https://github.com/marbl/Mash/releases
+Mash docs: https://mash.readthedocs.io/
 
 ```bash
+# first exucute all vs all comparison using mash
+# step 1. create sketch of all genomes or metagenomes
+# my files contains metagenomes or genomes in fastq or fasta format.
+mkdir mySketches
+for f in myFiles/*fasta; do n=`basename $f | cut -d. -f1`; ./mash sketch -o mySketches/$n $f; done
+# step 2. concatenate sketches in single file
+./mash paste allSketches mySketches/*.msh
+# step 3. compute all vs all dist with allSketches
+./mash dist allSketches.msh allSketches.msh -t > files/06_example_mash_allV.tsv
+
+#
 python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.6 0.8 1.0
 ```
 
