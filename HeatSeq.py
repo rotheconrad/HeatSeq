@@ -183,8 +183,8 @@ def get_valleys(ani_array, outpre):
     plt.plot(x, y, label='KDE')
     plt.scatter(x[pks], y[pks], color='red', label='Peaks')
     plt.scatter(x[vls], y[vls], color='blue', label='Valleys', marker='v')
-    plt.title('ANI KDE with Peaks and Valleys')
-    plt.xlabel('ANI')
+    plt.title('Distribution KDE with Peaks and Valleys')
+    plt.xlabel('Distance')
     plt.ylabel('Density')
     ax = plt.gca()
     plt.text(0.01, 0.99, line, horizontalalignment='left',
