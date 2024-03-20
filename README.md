@@ -78,6 +78,7 @@ And several additional parameters:
     1. single, complete, average, weighted, centroid, median, ward
     1. See webpage/docs for [scipy.cluster.hierarchy.linkage](https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for more info.
 1. -no, Create clustermap of the data without cluster prediction or metadata.
+1. -bw, Adjust the KDE bandwidth parameter to control smoothing and valley prediction.
 
 ```bash
 # print the help menu
@@ -91,6 +92,8 @@ The default case uses [scipy.stats.gaussian_kde](https://docs.scipy.org/doc/scip
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/01_example_default
 ```
+
+*Note the bandwidth affects the smoothing in the KDE estimate which in turn influences the local minimum (valley) estimates. You can use the -bw parameter to experiment*
 
 #### KDE with peaks (local maximums) and valleys (local minimums)
 
@@ -252,5 +255,6 @@ PLACEHOLDER FOR MANUSCRIPT CITATION AND LINK
 1. Add additional parsing support for outputs from other tools to save the user from creating the distance matrix.
 1. Add support for checkM or other tools to create the option of selecting a cluster representative for each predicted cluster.
 1. Add cluster analysis tools and figures to evaluate the effectiveness of clustering at each distance threshold. Silhouette plots etc.
+1. Add KDE bandwidth parameter optimization.
 
 ([Return to Table of Contents](#table-of-contents))

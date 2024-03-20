@@ -159,11 +159,11 @@ def parse_ANI_file(infile, dmin, dmax):
     return df, ani_array
 
 
-def get_valleys(ani_array, outpre):
+def get_valleys(ani_array, outpre, bw):
 
     # use peak_finder algorithm to find local minimums (valleys)
 
-    kde = gaussian_kde(ani_array, bw_method=0.15)
+    kde = gaussian_kde(ani_array, bw_method=bw)
     x = np.linspace(min(ani_array), max(ani_array), 1000)
     y = kde(x)
     yp = find_peaks(y) # returns array (peak indices in x, {properties dict})
@@ -491,6 +491,14 @@ def main():
         required=False,
         default='fastANI'
         )
+    parser.add_argument(
+        '-bw', '--kde_bandwidth',
+        help='(Optional) Adjust KDE bandwidth (default: 0.15)',
+        metavar=':',
+        type=float,
+        required=False,
+        default='0.15'
+        )
     args=vars(parser.parse_args())
 
     # Do what you came here to do:
@@ -508,6 +516,7 @@ def main():
     metric = args['cluster_metric']
     method = args['cluster_method']
     dtype = args['data_type']
+    bw = args['kde_bandwidth']
 
     # read in the data.
     if dtype == 'fastANI':
@@ -572,7 +581,7 @@ def main():
 
     else:
         # default case. find_peaks, get local minimums, predict clusters, plot
-        predicted_clusters = get_valleys(d_array, outpre)
+        predicted_clusters = get_valleys(d_array, outpre, bw)
         metadf, cdict = predict_clusters(df, predicted_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
