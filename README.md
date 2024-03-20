@@ -167,7 +167,7 @@ for f in myFiles/*fasta; do n=`basename $f | cut -d. -f1`; ./mash sketch -o mySk
 # step 3. compute all vs all dist with allSketches
 ./mash dist allSketches.msh allSketches.msh -t > files/06_example_mash_allV.tsv
 
-#
+# step 4. create the heatmap from the mash distance matrix.
 python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.6 0.8 1.0
 ```
 
