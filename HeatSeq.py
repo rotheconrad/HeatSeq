@@ -312,7 +312,7 @@ def get_custom_cmap(d_array, dmin, dmax, units):
 
 
 def plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
             ):
 
     # build the plot with metadata
@@ -376,7 +376,8 @@ def plot_clustred_heatmap(
         for meta, color in cdict.items():
             cout.write(f'{meta}\t{color}\n')
 
-    g.cax.set_xlabel('ANI (%)', rotation=0, labelpad=10, fontsize=12)
+    if dtype == 'fastANI': dtype = 'ANI'
+    g.cax.set_xlabel(f'{dtype} (%)', rotation=0, labelpad=10, fontsize=12)
     # remove labels and tick marks
     g.ax_heatmap.set_xlabel('')
     g.ax_heatmap.set_ylabel('')
@@ -536,7 +537,7 @@ def main():
         # create the plot without meta data colors
         metadf, cdict = pd.DataFrame(), pd.DataFrame()
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
             )
 
     elif metadata and metacolors:
@@ -548,7 +549,7 @@ def main():
         # select only columns in metadf
         df = df[metadf.index.tolist()]
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
             )
 
     elif metadata:
@@ -562,7 +563,7 @@ def main():
         metadf, cdict = predict_clusters(df, user_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
             )
 
     else:
@@ -571,7 +572,7 @@ def main():
         metadf, cdict = predict_clusters(df, predicted_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
             )
 
     print('\n\nComplete success space cadet! Hold on to your boots.\n\n')
