@@ -143,7 +143,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xc_example_defau
 
 This option is to accommodate ANI values estimated with other tools. Arrange the data into a square matrix and format at a tsv file.
 
-This matrix can have either 100's along the diagnol (for self matches) from straight ANI values, or it can have 0's if 100-ANI has already computed. HeatSeq will auto detect the daignol and respond accordingly.
+This matrix should be actual ANI values with 100's along the diagonal (for self matches) and not 100-ANI with 0's on the diagonal.
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/04_example_ANI -dtype ANI
@@ -155,7 +155,7 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/04_example_ANI -
 
 This options alters the value range for hierarchical clustering and the heatmap to accommodate the lower percentage range of AAI estimates. Any AAI tool may be used. Arrange the data into a square matrix and format at a tsv file.
 
-This matrix can have either 100's along the diagnol (for self matches) from straight AAI values, or it can have 0's if 100-AAI has already computed. HeatSeq will auto detect the daignol and respond accordingly.
+This matrix should be actual AAI values with 100's along the diagonal (for self matches) and not 100-AAI with 0's on the diagonal.
 
 One AAI option is from the Enveomics Collection.
 Enveomics collection: http://enve-omics.ce.gatech.edu/enveomics/docs

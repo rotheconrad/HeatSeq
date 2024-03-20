@@ -205,9 +205,8 @@ def predict_clusters(df, d_thresholds, metric, method, units):
     genomes = df.columns.tolist()
     # prepare ANI and AAI
     if units == 100:
-        if sum(np.diag(df)) > 0:
-            # convert ANI or AAI percent to distance
-            df = (100-df)/100
+        # convert ANI or AAI percent to distance
+        df = (100-df)/100
         sorted_threshold = sorted(d_thresholds)
         distance_thresholds = [round((100 - i)/100, 4) for i in sorted_threshold]
     # prepare 0-1 distance Mash, Simka etc
