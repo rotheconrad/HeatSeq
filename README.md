@@ -1,11 +1,11 @@
-# HeatSeq: cluster munitions for microbial genomics
+# HeatSeq®: cluster munitions for microbial genomics
 
-![HeatSeq Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.jpg)
+![HeatSeq® Logo](https://github.com/rotheconrad/HeatSeq/blob/main/images/HeatSeq_logo.jpg)
 
 
-Quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others. Excellent for exploring distance based genomic clades or sample groups. Developed to investigate intraspecies clades such as genomovars and phylogroups.
+HeatSeq® allows the user to quickly and easily predict and visualize distance based clusters for all vs. all ANI, AAI, Mash distance and others. Excellent for exploring distance based genomic clades or sample groups. Developed to investigate intraspecies clades such as genomovars and phylogroups.
 
-This tool uses hierarchical clustering to generate distance based cluster predictions for genomic (ANI, AAI) and metagenomic (beta distance, MASH, Simka) data, or any other all vs. all distance type matrix, and it builds a clustered heatmap with column labels to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tab separated value (tsv) file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
+HeatSeq® uses hierarchical clustering to generate distance based cluster predictions for genomic (ANI, AAI) and metagenomic (beta distance, MASH, Simka) data, or any other all vs. all distance type matrix, and it builds a clustered heatmap with column labels to highlight predicted cluster assignments and other user provided metadata. It outputs a seaborn clustermap in vector based PDF format along with separate PDF legend corresponding to each metadata row. It also outputs a metadata tab separated value (tsv) file with the predicted cluster assignments for each cluster threshold for each genome, metagenome, or sample along with a separate tsv file specifying the color assignments. These output files may be modified by the user and input back into the code to customize the final figure output.
 
 # Table of Contents
 
