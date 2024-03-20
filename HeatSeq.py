@@ -376,8 +376,12 @@ def plot_clustred_heatmap(
         for meta, color in cdict.items():
             cout.write(f'{meta}\t{color}\n')
 
-    if dtype == 'fastANI': dtype = 'ANI'
-    g.cax.set_xlabel(f'{dtype} (%)', rotation=0, labelpad=10, fontsize=12)
+    dlb = {
+            'fastANI': "ANI (%)", 'ANI': "ANI (%)", 'AAI': "AAI (%)",
+            'Mash': "Mash distance", 'Simka': "Simka distance",
+            'Distance': "Distance"
+            }
+    g.cax.set_xlabel(f'{dlb[dtype]}', rotation=0, labelpad=10, fontsize=12)
     # remove labels and tick marks
     g.ax_heatmap.set_xlabel('')
     g.ax_heatmap.set_ylabel('')
