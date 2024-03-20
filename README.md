@@ -120,9 +120,17 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_defau
 
 fastANI is the default case and was utilized in the case examples above. Here we show examples with some optional parameters
 
+fastANI: https://github.com/ParBLiSS/FastANI
+
+
+
 ```bash
+# Use fastANI in many to many WITHOUT the --matrix parameter
+# if used --matrix and have the fastANI.matrix file use -dtype ANI outlined below.
+./fastANI --ql [QUERY_LIST] --rl [REFERENCE_LIST] -o 01_example_fastANI_allV.tsv
+
 # set min and max
-python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xa_example_default -dmin 90 -dmax 99
+python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xa_example_default -dmin 90 -dmax 99 -user 98.5 96.5
 
 # no metadata or predicted clusters
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xb_example_default -no True
@@ -135,18 +143,27 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/xc_example_defau
 
 This option is to accommodate ANI values estimated with other tools. Arrange the data into a square matrix and format at a tsv file.
 
+This matrix can have either 100's along the diagnol (for self matches) from straight ANI values, or it can have 0's if 100-ANI has already computed. HeatSeq will auto detect the daignol and respond accordingly.
+
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/04_example_ANI -dtype ANI
 ```
 
-*this option has incomplete example and testing*
+*this option has incomplete example and testing but should work.*
 
 ### AAI
 
 This options alters the value range for hierarchical clustering and the heatmap to accommodate the lower percentage range of AAI estimates. Any AAI tool may be used. Arrange the data into a square matrix and format at a tsv file.
 
+This matrix can have either 100's along the diagnol (for self matches) from straight AAI values, or it can have 0's if 100-AAI has already computed. HeatSeq will auto detect the daignol and respond accordingly.
+
+One AAI option is from the Enveomics Collection.
+Enveomics collection: http://enve-omics.ce.gatech.edu/enveomics/docs
+1. First run aai.rb for all vs all genomes: http://enve-omics.ce.gatech.edu/enveomics/docs?t=aai.rb
+1. Then run Table.df2dsit.R to convert to a square distance matrix: http://enve-omics.ce.gatech.edu/enveomics/docs?t=Table.df2dist.R
+
 ```bash
-python HeatSeq.py -i files/05_example_AAI_allV.aai -o tests/05_example_AAI -dtype AAI
+python HeatSeq.py -i files/05_example_AAI_allV.tsv -o tests/05_example_AAI -dtype AAI
 ```
 
 ### Mash
@@ -168,12 +185,14 @@ for f in myFiles/*fasta; do n=`basename $f | cut -d. -f1`; ./mash sketch -o mySk
 ./mash dist allSketches.msh allSketches.msh -t > files/06_example_mash_allV.tsv
 
 # step 4. create the heatmap from the mash distance matrix.
-python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.6 0.8 1.0
+python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.06 0.08 0.1
 ```
 
 ### Simka
 
 This option takes the output from Simka. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
+
+Simka: https://github.com/GATB/simka
 
 ```bash
 python HeatSeq.py -i files/07_example_simka_allV.txt -o tests/07_example_SIMKA -dtype Simka -user 0.5 0.7 0.9
@@ -183,7 +202,7 @@ python HeatSeq.py -i files/07_example_simka_allV.txt -o tests/07_example_SIMKA -
 
 Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tsv file.
 
-*this option has incomplete example and testing*
+*this option has incomplete example and testing but should work.*
 
 ```bash
 python HeatSeq.py -i files/08_example_distance_allV.tsv -o tests/08_example_distance -dtype Distance

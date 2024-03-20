@@ -82,6 +82,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from decimal import Decimal
 from scipy.stats import gaussian_kde
 from scipy.signal import find_peaks
 from scipy.cluster.hierarchy import linkage, fcluster
@@ -195,17 +196,24 @@ def get_valleys(ani_array, outpre):
     return local_minimums
 
 
-def predict_clusters(df, ani_thresholds, metric, method):
+def predict_clusters(df, d_thresholds, metric, method, units):
 
     # initialize dicts for meta data and colors
     metadf = {}
     cdict = {}
 
     genomes = df.columns.tolist()
-    # convert ANI and thresholds to ANI distance
-    df = (100-df)/100
-    sorted_threshold = sorted(ani_thresholds)
-    distance_thresholds = [round((100 - i)/100, 4) for i in sorted_threshold]
+    # prepare ANI and AAI
+    if units == 100:
+        if sum(np.diag(df)) > 0:
+            # convert ANI or AAI percent to distance
+            df = (100-df)/100
+        sorted_threshold = sorted(d_thresholds)
+        distance_thresholds = [round((100 - i)/100, 4) for i in sorted_threshold]
+    # prepare 0-1 distance Mash, Simka etc
+    if units == 1:
+        sorted_threshold = sorted(d_thresholds, reverse=True)
+        distance_thresholds = sorted_threshold
 
     # convert to condensed matrix
     # for some reason the condensed matrix gives (triangle) gives different
@@ -259,31 +267,37 @@ def parse_colors(metacolors):
 
 def get_custom_cmap(d_array, dmin, dmax, units):
 
+    # define colors
+    # Read these as colors per whole ANI value
+    # eg: [100 red, 99 orange, 98 yellow, 97 green, ] or
+    # eg: [0 red, 0.1 orange, 0.2 yellow, 0.3 green, ]
+    colors = [
+              '#e41a1c', '#ff7f00', '#ffff33', '#006d2c', '#80cdc1',
+              '#377eb8', '#e78ac3', '#984ea3', '#bf812d', '#bababa',
+              '#252525'
+              ]
+
+    # get min and max
+    if not dmin:
+        dmin = np.min(d_array)
+        print(f'\n\n\tData minimum: {dmin}')
+    if not dmax: 
+        dmax = np.max(d_array)
+        print(f'\n\n\tData maximum: {dmax}')
+
     if units == 100:
-        # get min and max
-        if not dmin:
-            dmin = np.min(d_array)
-            print(f'\n\n\tData minimum: {dmin}')
-        if not dmax: 
-            dmax = np.max(d_array)
-            print(f'\n\n\tData maximum: {dmax}')
         # one color per 1% ANI range
         d_range = int(np.ceil(dmax) - np.floor(dmin) + 1)
         if d_range > 11: d_range = 11
+        cmap = sns.blend_palette(reversed(colors[:d_range]), as_cmap=True)
 
     elif units == 1:
-        # get bmax from the data
-        if not dmax:
-            dmax = np.max(d_array)
-            dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
-        if not dmin:
-            dmin = np.min(d_array)
-            dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
+        dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
+        dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
 
-        print(f'\n\n\tData min and max: {bmin}, {bmax}')
         # one color per 0.1 distance range
         step = 0.1
-        d_range = len(np.arange(bmin, bmax+step, step))
+        d_range = len(np.arange(dmin, dmax+step, step))
         if d_range == 4:
             d_range += 3
         elif d_range == 3:
@@ -293,15 +307,7 @@ def get_custom_cmap(d_array, dmin, dmax, units):
         elif d_range == 1:
             d_range += 6
 
-    # Read these as colors per whole ANI value
-    # eg: [100 red, 99 orange, 98 yellow, 97 green, ]
-    colors = [
-              '#e41a1c', '#ff7f00', '#ffff33', '#006d2c', '#80cdc1',
-              '#377eb8', '#e78ac3', '#984ea3', '#bf812d', '#bababa',
-              '#252525'
-              ]
-
-    cmap = sns.blend_palette(reversed(colors[:d_range]), as_cmap=True)
+        cmap = sns.blend_palette(colors[:d_range], as_cmap=True)
 
     return cmap, dmin, dmax
 
@@ -502,25 +508,28 @@ def main():
     # read in the data.
     if dtype == 'fastANI':
         # read in all vs. all fastANI file.
-        df, ani_array = parse_ANI_file(infile, dmin, dmax)
-        cmap, dmin, dmax = get_custom_cmap(ani_array, dmin, dmax, 100)
+        df, d_array = parse_ANI_file(infile, dmin, dmax)
+        units = 100
     elif dtype == 'ANI' or dtype == 'AAI':
         df = pd.read_csv(infile, sep='\t', index_col=0)
         d_array = df.to_numpy().flatten()
-        cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, 100)
-    elif dtype == 'Mash' or dypte == 'Distance':
+        units = 100
+    elif dtype == 'Mash' or dtype == 'Distance':
         df = pd.read_csv(infile, sep='\t', index_col=0)
         d_array = df.to_numpy().flatten()
-        cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, 1)
+        units = 1
     elif dtype == 'Simka':
         df = pd.read_csv(infile, sep=';', index_col=0)
         d_array = df.to_numpy().flatten()
-        cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, 1)
+        units = 1
     else:
         print(
             '\n\n\t\tERROR: please specify one of the following:\n'
             '\t\t\tfastANI, ANI, AAI, Mash, Simka, or Distance.\n\n'
             )
+
+    # define min, max and cmap
+    cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, units)
 
     ####################################################################
 
@@ -551,7 +560,7 @@ def main():
 
     elif user_clusters:
         # run clustering algo on user defined values
-        metadf, cdict = predict_clusters(df, user_clusters, metric, method)
+        metadf, cdict = predict_clusters(df, user_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
             df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
@@ -559,8 +568,8 @@ def main():
 
     else:
         # default case. find_peaks, get local minimums, predict clusters, plot
-        predicted_clusters = get_valleys(ani_array, outpre)
-        metadf, cdict = predict_clusters(df, predicted_clusters, metric, method)
+        predicted_clusters = get_valleys(d_array, outpre)
+        metadf, cdict = predict_clusters(df, predicted_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
             df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method
