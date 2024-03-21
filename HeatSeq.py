@@ -312,8 +312,8 @@ def get_custom_cmap(d_array, dmin, dmax, units):
 
 
 def plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
-            ):
+        df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype, l
+        ):
 
     # build the plot with metadata
     if not metadf.empty:
@@ -382,14 +382,15 @@ def plot_clustred_heatmap(
             'Distance': "Distance"
             }
     g.cax.set_xlabel(f'{dlb[dtype]}', rotation=0, labelpad=10, fontsize=12)
-    # remove labels and tick marks
-    g.ax_heatmap.set_xlabel('')
-    g.ax_heatmap.set_ylabel('')
-    g.ax_heatmap.set_xticklabels([])
-    g.ax_heatmap.set_yticklabels([])
-    # If you want to also remove the ticks
-    g.ax_heatmap.tick_params(axis='x', which='both', length=0)
-    g.ax_heatmap.tick_params(axis='y', which='both', length=0)
+    if not l:
+        # remove labels and tick marks
+        g.ax_heatmap.set_xlabel('')
+        g.ax_heatmap.set_ylabel('')
+        g.ax_heatmap.set_xticklabels([])
+        g.ax_heatmap.set_yticklabels([])
+        # If you want to also remove the ticks
+        g.ax_heatmap.tick_params(axis='x', which='both', length=0)
+        g.ax_heatmap.tick_params(axis='y', which='both', length=0)
     # write file
     g.savefig(f'{outpre}_clustermap.pdf')
     plt.close()
@@ -499,6 +500,14 @@ def main():
         required=False,
         default='0.15'
         )
+    parser.add_argument(
+        '-l', '--add_axis_labels',
+        help='(Optional) set -l True to add axis labels (default: False)',
+        metavar=':',
+        type=str,
+        required=False,
+        default=None
+        )
     args=vars(parser.parse_args())
 
     # Do what you came here to do:
@@ -517,6 +526,7 @@ def main():
     method = args['cluster_method']
     dtype = args['data_type']
     bw = args['kde_bandwidth']
+    l = args['add_axis_labels']
 
     # read in the data.
     if dtype == 'fastANI':
@@ -550,7 +560,7 @@ def main():
         # create the plot without meta data colors
         metadf, cdict = pd.DataFrame(), pd.DataFrame()
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype, l
             )
 
     elif metadata and metacolors:
@@ -562,7 +572,7 @@ def main():
         # select only columns in metadf
         df = df[metadf.index.tolist()]
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype, l
             )
 
     elif metadata:
@@ -576,7 +586,7 @@ def main():
         metadf, cdict = predict_clusters(df, user_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype, l
             )
 
     else:
@@ -585,7 +595,7 @@ def main():
         metadf, cdict = predict_clusters(df, predicted_clusters, metric, method, units)
 
         _ = plot_clustred_heatmap(
-            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype
+            df, outpre, cmap, metadf, cdict, dmin, dmax, metric, method, dtype, l
             )
 
     print('\n\nComplete success space cadet! Hold on to your boots.\n\n')

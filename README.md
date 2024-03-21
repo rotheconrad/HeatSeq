@@ -79,6 +79,7 @@ And several additional parameters:
     1. See webpage/docs for [scipy.cluster.hierarchy.linkage](https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html) for more info.
 1. -no, Create clustermap of the data without cluster prediction or metadata.
 1. -bw, Adjust the KDE bandwidth parameter to control smoothing and valley prediction.
+1. -l, Add axis labels to plot. Default is no labels because they are typically difficult to read.
 
 ```bash
 # print the help menu
@@ -166,7 +167,7 @@ Enveomics collection: http://enve-omics.ce.gatech.edu/enveomics/docs
 1. Then run Table.df2dsit.R to convert to a square distance matrix: http://enve-omics.ce.gatech.edu/enveomics/docs?t=Table.df2dist.R
 
 ```bash
-python HeatSeq.py -i files/05_example_AAI_allV.tsv -o tests/05_example_AAI -dtype AAI
+python HeatSeq.py -i files/05_example_AAI_allV.tsv -o tests/05_example_AAI -dtype AAI -l True
 ```
 
 ### Mash
