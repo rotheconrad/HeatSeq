@@ -178,17 +178,18 @@ Mash releases: https://github.com/marbl/Mash/releases
 Mash docs: https://mash.readthedocs.io/
 
 ```bash
-# first exucute all vs all comparison using mash
-# step 1. create sketch of all genomes or metagenomes
-# my files contains metagenomes or genomes in fastq or fasta format.
+# Step 1: create sketch of all genomes or metagenomes.
 mkdir mySketches
 for f in myFiles/*fasta; do n=`basename $f | cut -d. -f1`; ./mash sketch -o mySketches/$n $f; done
-# step 2. concatenate sketches in single file
+# * # myFiles may contain metagenomes or genomes in fastq or fasta format.
+
+# Step 2: concatenate sketches in single file.
 ./mash paste allSketches mySketches/*.msh
-# step 3. compute all vs all dist with allSketches
+
+# step 3. compute all vs all dist with allSketches.
 ./mash dist allSketches.msh allSketches.msh -t > files/06_example_mash_allV.tsv
 
-# step 4. create the heatmap from the mash distance matrix.
+# Step 4: predict clusters and build heatmap figure.
 python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dtype Mash -user 0.06 0.08 0.1
 ```
 
@@ -199,6 +200,13 @@ This option takes the output from Simka. It alters the value range for hierarchi
 Simka: https://github.com/GATB/simka
 
 ```bash
+# Step 1: Generate all vs all input file.
+>for f in ${reads_dir}/*1.fastq; do n=basename $f | cut -d_ -f1; echo '${n}:$f;${n}2.fastq'; done > simka_input.txt
+
+# Step 2: run all vs all simka with 50GB and 12 cores.
+simka -max-memory 50000 -nb-cores 12 -in simka_input.txt -out simka_out -out-tmp simka_temp
+
+# Step 3: predict clusters and build heatmap figure.
 python HeatSeq.py -i files/07_example_simka_allV.txt -o tests/07_example_SIMKA -dtype Simka -user 0.5 0.7 0.9
 ```
 
