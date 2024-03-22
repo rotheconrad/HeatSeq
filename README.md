@@ -110,7 +110,30 @@ python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/02_example_defau
 
 ### Case Three: Custom Metadata
 
-The custom metadata case allows the user to modify the *predicted_clusters.tsv* and the *meta_colors.tsv* files output from the case two example to include additional metadata categories and/or alter the colors. In this example we've added niche and clermontyping assignments for each genome and we've added color assignments for each unique niche or clermontyping category.
+The custom metadata case allows the user to modify the *predicted_clusters.tsv* and the *meta_colors.tsv* files output from the case one or two outputs to include additional metadata categories and/or alter the colors. In this example we've added niche and clermontyping assignments for each genome and we've added color assignments for each unique niche or clermontyping category.
+
+Alternately, Case one and/or two may be skipped entirely if the user prepares a properly formatted meta data file (predicted_clusters.tsv) and a meta colors file on their own.
+
+##### Meta file formatting
+
+*See example files in tests folder*
+
+1. A tab separated metadata file with a row for each genome in the
+ANI file with the exact genome name, and columns for each meta value.
+File should include a header.
+        example:
+            Genome\tSite\tNiche\tPhylogroup
+            Genome1\tA\tSheep\tB1
+            Genome2\tB\tCow\tE
+
+1. A tab separated file of unique meta catagories and colors
+        example:
+            Site1\t#ffffb3
+            Site2\t#377eb8
+            Species1\t#ff7f00
+            Species2\t#f781bf
+            Temp1\t#4daf4a
+            Temp2\t#3f1gy5
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
