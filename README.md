@@ -126,21 +126,24 @@ File should include a header.
 
 **Genome**|**Site**|**Niche**|**Phylogroup**
 :-----:|:-----:|:-----:|:-----:
-Genome1|A|Sheep|B1
-Genome2|B|Cow|E
-Genome3|C|Pig|A
+Genome1|A1|Sheep|B1
+Genome2|B1|Cow|E
+Genome3|C1|Pig|A
 
 1. A tab separated file of unique meta catagories and colors
 
 **example:**
 
-Site1|#ffffb3
+A1|#ffffb3
 :-----:|:-----:
-Site2|#377eb8
-Species1|#ff7f00
-Species2|#f781bf
-Temp1|#4daf4a
-Temp2|#3f1gy5
+B1|#377eb8
+C1|#ff7f00
+Sheep|#f781bf
+Cow|#4daf4a
+Pig|#3f1gy5
+B1|#f781bf
+E|#4daf4a
+A|#3f1gy5
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
