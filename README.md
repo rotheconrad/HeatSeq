@@ -121,22 +121,22 @@ Alternately, Case one and/or two may be skipped entirely if the user prepares a 
 1. Meta data: A tab separated metadata file with a row for each genome in the
 ANI file with the exact genome name, and columns for each meta value.
 File should include a header.
-1. Meta colors: A tab separated file of unique meta catagories and colors
+1. Meta colors: A tab separated file of unique meta catagories and colors. *Note: Each meta data category must be unique across all meta data (e.g. Site B1, Phylogroup B1 cannot both be B1).*
 
 **Meta data example:**
 
 **Genome**|**Site**|**Niche**|**Phylogroup**
 :-----:|:-----:|:-----:|:-----:
-Genome1|A1|Sheep|B1
-Genome2|B1|Cow|E
-Genome3|C1|Pig|A
+Genome1|Site A1|Sheep|B1
+Genome2|Site B1|Cow|E
+Genome3|Site C1|Pig|A
 
 **Meta colors example:**
 
-A1|#ffffb3
+Site A1|#ffffb3
 :-----:|:-----:
-B1|#377eb8
-C1|#ff7f00
+Site B1|#377eb8
+Site C1|#ff7f00
 Sheep|#f781bf
 Cow|#4daf4a
 Pig|#3f1gy5
