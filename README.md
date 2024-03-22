@@ -172,7 +172,7 @@ python HeatSeq.py -i files/05_example_AAI_allV.tsv -o tests/05_example_AAI -dtyp
 
 ### Mash
 
-This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap to fit 0-1.
+This option takes the output from Mash. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. Diagonals (self matches) should be 0's.
 
 Mash releases: https://github.com/marbl/Mash/releases
 Mash docs: https://mash.readthedocs.io/
@@ -195,7 +195,7 @@ python HeatSeq.py -i files/06_example_mash_allV.tsv -o tests/06_example_MASH -dt
 
 ### Simka
 
-This option takes the output from Simka. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. 
+This option takes the output from Simka. It alters the value range for hierarchical clustering and the heatmap to fit 0-1. Diagonals (self matches) should be 0's. 
 
 Simka: https://github.com/GATB/simka
 
@@ -212,7 +212,7 @@ python HeatSeq.py -i files/07_example_simka_allV.txt -o tests/07_example_SIMKA -
 
 ### Distance
 
-Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tsv file.
+Any square matrix with values 0-1 may be used. Matrix file should be formatted as a tsv file with diagonals (self matches) equal to 0.
 
 *this option has incomplete example and testing but should work.*
 
