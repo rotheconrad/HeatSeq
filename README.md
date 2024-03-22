@@ -135,6 +135,7 @@ Genome3|C|Pig|A
 **example:**
 
 Site1|#ffffb3
+:-----:|:-----:
 Site2|#377eb8
 Species1|#ff7f00
 Species2|#f781bf
