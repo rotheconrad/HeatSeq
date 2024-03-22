@@ -122,20 +122,24 @@ Alternately, Case one and/or two may be skipped entirely if the user prepares a 
 ANI file with the exact genome name, and columns for each meta value.
 File should include a header.
 
-> example:
-> > Genome\tSite\tNiche\tPhylogroup
-> > Genome1\tA\tSheep\tB1
-> > Genome2\tB\tCow\tE
+**example:**
+
+**Genome**|**Site**|**Niche**|**Phylogroup**
+:-----:|:-----:|:-----:|:-----:
+Genome1|A|Sheep|B1
+Genome2|B|Cow|E
+Genome3|C|Pig|A
 
 1. A tab separated file of unique meta catagories and colors
 
-> example:
-> > Site1\t#ffffb3
-> > Site2\t#377eb8
-> > Species1\t#ff7f00
-> > Species2\t#f781bf
-> > Temp1\t#4daf4a
-> > Temp2\t#3f1gy5
+**example:**
+
+Site1|#ffffb3
+Site2|#377eb8
+Species1|#ff7f00
+Species2|#f781bf
+Temp1|#4daf4a
+Temp2|#3f1gy5
 
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
