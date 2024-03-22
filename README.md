@@ -144,6 +144,8 @@ B1|#f781bf
 E|#4daf4a
 A|#3f1gy5
 
+**Use -m and -c parameters to input file paths**
+
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
 ```
