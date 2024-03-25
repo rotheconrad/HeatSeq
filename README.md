@@ -149,6 +149,8 @@ A|#3f1gy5
 
 **Use -m and -c parameters to input file paths**
 
+An easy way to customize the metadata is to run HeatSeq™ like Case One or Case Two, and then open the *predicted_clusters.tsv* and *meta_colors.tsv* files in Excel or other spreadsheet program to amend and/or append the desired data.
+
 ```bash
 python HeatSeq.py -i files/01_example_fastANI_allV.tsv -o tests/03_example_default -m files/01_example_predicted_clusters.tsv -c files/01_example_meta_colors.tsv
 ```
