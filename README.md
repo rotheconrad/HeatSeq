@@ -50,6 +50,12 @@ gnm\_1389962v1|c0-006|c1-007|c2-008|c3-024|c4-053|c5-066
 gnm\_1389099v1|c0-006|c1-007|c2-008|c3-020|c4-049|c5-061
 gnm\_1383380v1|c0-006|c1-007|c2-008|c3-020|c4-049|c5-060
 
+#### Additional output files (see *tests* folder for actual files)
+
+1. *distmat.tsv* - square data matrix sorted according to clustered heatmap
+1. *meta_colors.tsv* - colors corresponding to unique values in *predicted_clusters.tsv* file
+1. *Legend_clade-x.pdf* - Legends corresponding to the predicted clades. These can be added to the figure using Adobe Illustrator or other.
+
 # Usage
 
 Their are three initial options:
