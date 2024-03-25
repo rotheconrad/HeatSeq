@@ -332,6 +332,7 @@ def plot_clustred_heatmap(
 
             # create columns for larger metadata sets
             cols = int(np.ceil(len(labels)/20))
+            if cols < 2: cols = 2
 
             fig, ax = plt.subplots(figsize=(cols*4,10))
             ax.xaxis.set_visible(False)
