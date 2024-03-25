@@ -86,7 +86,7 @@ And several additional parameters:
 1. -no, Create clustermap of the data without cluster prediction or metadata.
 1. -bw, Adjust the KDE bandwidth parameter to control smoothing and valley prediction.
 1. -l, Add axis labels to plot. Default is no labels because they are typically difficult to read.
-1. -hcg, Specify the number of colors to use in the heatmap color gradient (2-11).
+1. -hcg, Specify the number of colors to use in the heatmap color gradient (2-11). If you would like to customize the colors, you can edit the simple color list in HeatSeq.py on lines 273-277 with any colors you'd like.
 
 ```bash
 # print the help menu
