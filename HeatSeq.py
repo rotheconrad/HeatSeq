@@ -264,7 +264,7 @@ def parse_colors(metacolors):
     return cdict
 
 
-def get_custom_cmap(d_array, dmin, dmax, units):
+def get_custom_cmap(d_array, dmin, dmax, units, hcg):
 
     # define colors
     # Read these as colors per whole ANI value
@@ -275,8 +275,8 @@ def get_custom_cmap(d_array, dmin, dmax, units):
               '#377eb8', '#e78ac3', '#984ea3', '#bf812d', '#bababa',
               '#252525'
               ]
-
-    # get min and max
+ 
+    # get min and max from data if not user specified and print min and max.
     if not dmin:
         dmin = np.min(d_array)
         print(f'\n\n\tData minimum: {dmin}')
@@ -284,29 +284,38 @@ def get_custom_cmap(d_array, dmin, dmax, units):
         dmax = np.max(d_array)
         print(f'\n\n\tData maximum: {dmax}')
 
-    if units == 100:
-        # one color per 1% ANI range
-        d_range = int(np.ceil(dmax) - np.floor(dmin) + 1)
-        if d_range > 11: d_range = 11
-        cmap = sns.blend_palette(reversed(colors[:d_range]), as_cmap=True)
+    # if user specifies hcg use that many colors, else use max-min range.
+    if hcg:
+        ctemp = reversed(colors[:hcg])
 
-    elif units == 1:
-        dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
-        dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
+    else:
+        # for AAI or ANI do this
+        if units == 100:
+            # one color per 1% ANI range
+            d_range = int(np.ceil(dmax) - np.floor(dmin) + 1)
+            if d_range > 11: d_range = 11
+            ctemp = reversed(colors[:d_range])
 
-        # one color per 0.1 distance range
-        step = 0.1
-        d_range = len(np.arange(dmin, dmax+step, step))
-        if d_range == 4:
-            d_range += 3
-        elif d_range == 3:
-            d_range += 4
-        elif d_range == 2:
-            d_range += 5
-        elif d_range == 1:
-            d_range += 6
+        # for 0-1 matrix (mash, simka, etc) do this.
+        elif units == 1:
+            dmax = float(Decimal(dmax).quantize(Decimal("1.0"), 'ROUND_UP'))
+            dmin = float(Decimal(dmin).quantize(Decimal("1.0"), 'ROUND_DOWN'))
 
-        cmap = sns.blend_palette(colors[:d_range], as_cmap=True)
+            # one color per 0.1 distance range
+            step = 0.1
+            d_range = len(np.arange(dmin, dmax+step, step))
+            if d_range == 4:
+                d_range += 3
+            elif d_range == 3:
+                d_range += 4
+            elif d_range == 2:
+                d_range += 5
+            elif d_range == 1:
+                d_range += 6
+
+            ctemp = colors[:d_range]
+
+    cmap = sns.blend_palette(ctemp, as_cmap=True)
 
     return cmap, dmin, dmax
 
@@ -508,6 +517,14 @@ def main():
         required=False,
         default=None
         )
+    parser.add_argument(
+        '-hcg', '--heatmap_color_gradient',
+        help='(Optional) Specify number of colors in heatmap color gradient',
+        metavar=':',
+        type=int,
+        required=False,
+        default=None
+        )
     args=vars(parser.parse_args())
 
     # Do what you came here to do:
@@ -527,6 +544,7 @@ def main():
     dtype = args['data_type']
     bw = args['kde_bandwidth']
     l = args['add_axis_labels']
+    hcg = args['heatmap_color_gradient']
 
     # read in the data.
     if dtype == 'fastANI':
@@ -552,7 +570,7 @@ def main():
             )
 
     # define min, max and cmap
-    cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, units)
+    cmap, dmin, dmax = get_custom_cmap(d_array, dmin, dmax, units, hcg)
 
     ####################################################################
 

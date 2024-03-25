@@ -80,6 +80,7 @@ And several additional parameters:
 1. -no, Create clustermap of the data without cluster prediction or metadata.
 1. -bw, Adjust the KDE bandwidth parameter to control smoothing and valley prediction.
 1. -l, Add axis labels to plot. Default is no labels because they are typically difficult to read.
+1. -hcg, Specify the number of colors to use in the heatmap color gradient (2-11).
 
 ```bash
 # print the help menu
@@ -203,7 +204,7 @@ Enveomics collection: http://enve-omics.ce.gatech.edu/enveomics/docs
 1. Then run Table.df2dsit.R to convert to a square distance matrix: http://enve-omics.ce.gatech.edu/enveomics/docs?t=Table.df2dist.R
 
 ```bash
-python HeatSeq.py -i files/05_example_AAI_allV.tsv -o tests/05_example_AAI -dtype AAI -l True
+python HeatSeq.py -i files/05_example_AAI_allV.tsv -o tests/05_example_AAI -dtype AAI -l True -hcg 3 -m files/05a_metadata.tsv -c files/05b_metacolors.tsv
 ```
 
 ### Mash
