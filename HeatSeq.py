@@ -401,6 +401,7 @@ def plot_clustred_heatmap(
         # If you want to also remove the ticks
         g.ax_heatmap.tick_params(axis='x', which='both', length=0)
         g.ax_heatmap.tick_params(axis='y', which='both', length=0)
+
     # write file
     g.savefig(f'{outpre}_clustermap.pdf')
     plt.close()
