@@ -215,6 +215,10 @@ def predict_clusters(df, d_thresholds, metric, method, units):
         distance_thresholds = sorted_threshold
 
     # convert to condensed matrix
+    # interesting stackoverflow post that may be worth looking at later.
+    # https://stackoverflow.com/questions/38705359/
+    # how-to-give-sns-clustermap-a-precomputed-distance-matrix
+    # for now, the behavior is as expected and seems to be working well.
     # for some reason the condensed matrix gives (triangle) gives different
     # results than the uncondensed matrix (square)
     # squareform converts between condensed and uncondensed
