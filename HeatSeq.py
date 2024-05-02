@@ -114,6 +114,11 @@ def parse_ANI_file(infile, dmin, dmax):
             if dmin and ani < dmin: continue
             if not g1 == g2:
                 if dmax and ani > dmax: continue
+            # verify self matches are 100% ANI
+            # rarely I've found not exact 100's from fastANI
+            if g1 == g2 and ani != 100:
+                print(f'\n\tCAUTION: {g1} self match is not 100% ANI')
+                ani = 100
             # add ani to array
             ani_array.append(ani)
             # convert to ANI distance
